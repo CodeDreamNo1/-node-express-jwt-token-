@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+用户名：<input type="text" id="user">
+密码: <input type="password" id="password">
+<input type="button" value="登录" id="btn">
+<input type="button" value="验证token" id="check">
+</body>
+<script>
+     $('#btn').click(function () {
+         $.ajax({
+             method:'get',
+             url:'/r',
+             data:{user:$('#user').val(),pass:$('#password').val()},
+             success: function (res) {
+                 console.log(document.cookie.split('=')[1]);
+             }
+         })
+     })
+    $('#check').click(function () {
+         $.ajax({
+             url:'/c',
+             method:'get',
+             headers: {
+                 'x-access-token': document.cookie.split('=')[1]
+             }
+         })
+    })
+</script>
+</html>
